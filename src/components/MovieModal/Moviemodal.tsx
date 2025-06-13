@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import type { Movie } from '../../types/movie';
+import { type Movie } from '../../types/movie';
 import styles from './MovieModal.module.css';
 
 interface MovieModalProps {
@@ -9,10 +9,10 @@ interface MovieModalProps {
 
 const MovieModal = ({ movie, onClose }: MovieModalProps) => {
   useEffect(() => {
-    // Забороняємо скрол
+    // Заборона скролу сторінки
     document.body.style.overflow = 'hidden';
 
-    // Додаємо слухач
+    // слухач для Escape
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         onClose();
@@ -20,7 +20,7 @@ const MovieModal = ({ movie, onClose }: MovieModalProps) => {
     };
     window.addEventListener('keydown', handleEsc);
 
-    // При закритті модалки: видаляємо слухача і відновлюємо скрол
+    // закриваючи модал видаляємо слухача і відновлюємо скрол
     return () => {
       document.body.style.overflow = 'auto';
       window.removeEventListener('keydown', handleEsc);

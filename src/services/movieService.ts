@@ -1,9 +1,10 @@
+// src/services/fetchMovies.ts
 import axios from 'axios';
-import type { Movie } from '../types/movie';
+import { type Movie } from '../types/movie';
 
 const API_URL = 'https://api.themoviedb.org/3/search/movie';
 
-interface TMDBResponse {
+export interface TMDBResponse {
   results: Movie[];
   page: number;
   total_results: number;
@@ -12,16 +13,16 @@ interface TMDBResponse {
 
 export const fetchMovies = async (
   query: string,
-  token: string
-): Promise<Movie[]> => {
+  token: string,
+  page: number = 1
+): Promise<TMDBResponse> => {
   const config = {
-    params: { query },
+    params: { query, page },
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
 
   const response = await axios.get<TMDBResponse>(API_URL, config);
-
-  return response.data.results;
+  return response.data;
 };

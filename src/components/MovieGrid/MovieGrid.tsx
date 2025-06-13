@@ -1,4 +1,4 @@
-import type { Movie } from '../../types/movie';
+import { type Movie } from '../../types/movie';
 import styles from './MovieGrid.module.css';
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
 }
 
 const MovieGrid = ({ movies, onSelect }: Props) => {
-  // Якщо масив порожній — не рендеримо галерею
+  // Якщо масив порожній не рендерить
   if (movies.length === 0) return null;
 
   return (
