@@ -15,8 +15,6 @@ import { type Movie } from '../../types/movie';
 import { fetchMovies, type TMDBResponse } from '../../services/movieService';
 import css from './App.module.css';
 
-const TMDB_TOKEN = import.meta.env.VITE_API_KEY;
-
 const App: React.FC = () => {
   const [query, setQuery] = useState<string>('');
   const [page, setPage] = useState<number>(1);
@@ -24,7 +22,7 @@ const App: React.FC = () => {
 
   const { data, isLoading, isError, error, isSuccess } = useQuery({
     queryKey: ['movies', query, page],
-    queryFn: () => fetchMovies(query, TMDB_TOKEN, page),
+    queryFn: () => fetchMovies(query, page),
     enabled: !!query,
     placeholderData: keepPreviousData,
   }) as UseQueryResult<TMDBResponse, Error>;

@@ -1,4 +1,3 @@
-// src/services/fetchMovies.ts
 import axios from 'axios';
 import { type Movie } from '../types/movie';
 
@@ -13,9 +12,14 @@ export interface TMDBResponse {
 
 export const fetchMovies = async (
   query: string,
-  token: string,
   page: number = 1
 ): Promise<TMDBResponse> => {
+  const token = import.meta.env.VITE_API_KEY;
+
+  if (!token) {
+    throw new Error('TMDB API token is not defined in environment variables');
+  }
+
   const config = {
     params: { query, page },
     headers: {
